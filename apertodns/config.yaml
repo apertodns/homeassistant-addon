@@ -1,0 +1,49 @@
+# ============================================================================
+# ApertoDNS DDNS Add-on for Home Assistant
+#
+# Keeps your ApertoDNS domains updated with your current public IP address.
+# Supports two authentication methods:
+#   1. DDNS Token (recommended) - Get from ApertoDNS dashboard
+#   2. Email + Password - Your ApertoDNS account credentials
+#
+# @author Andrea Ferro <support@apertodns.com>
+# @version 2.1.0
+# @link https://www.apertodns.com
+# ============================================================================
+
+name: "ApertoDNS DDNS"
+description: "Keep your ApertoDNS dynamic DNS domains updated with your current IP address"
+version: "2.1.0"
+slug: "apertodns"
+url: "https://github.com/apertodns/homeassistant-addon"
+startup: services
+boot: auto
+init: false
+
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+
+options:
+  auth_method: "token"
+  token: ""
+  email: ""
+  password: ""
+  domains: []
+  update_interval: 300
+  log_level: "info"
+
+schema:
+  auth_method: "list(token|credentials)"
+  token: "password?"
+  email: "email?"
+  password: "password?"
+  domains:
+    - "str"
+  update_interval: "int(60,86400)?"
+  log_level: "list(debug|info|warning|error)?"
+
+image: "ghcr.io/apertodns/homeassistant-addon-apertodns-{arch}"

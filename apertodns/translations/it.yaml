@@ -1,0 +1,22 @@
+configuration:
+  auth_method:
+    name: Metodo di Autenticazione
+    description: Scegli come autenticarti. "token" usa il tuo token DDNS (consigliato), "credentials" usa email e password del tuo account ApertoDNS.
+  token:
+    name: Token DDNS
+    description: Il tuo token DDNS ApertoDNS (64 caratteri esadecimali). Lo trovi nella dashboard ApertoDNS in Domini > [tuo dominio] > Token DDNS. Richiesto se auth_method è "token".
+  email:
+    name: Email
+    description: L'email del tuo account ApertoDNS. Richiesta se auth_method è "credentials".
+  password:
+    name: Password
+    description: La password del tuo account ApertoDNS. Richiesta se auth_method è "credentials".
+  domains:
+    name: Domini
+    description: Lista dei domini da aggiornare (es. miohost.apertodns.com)
+  update_interval:
+    name: Intervallo di Aggiornamento
+    description: Frequenza di controllo e aggiornamento IP (in secondi, 60-86400). Default 300 secondi (5 minuti).
+  log_level:
+    name: Livello Log
+    description: Verbosità del logging. Usa "debug" per troubleshooting, "info" per operazioni normali.

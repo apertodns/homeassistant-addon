@@ -1,0 +1,91 @@
+# ============================================================================
+# ApertoDNS Home Assistant Add-on - Build and Publish
+#
+# Builds multi-arch Docker images and publishes to GitHub Container Registry.
+# Triggered on push to main or when a new release is created.
+#
+# @author Andrea Ferro <support@apertodns.com>
+# @link https://www.apertodns.com
+# ============================================================================
+
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apertodns/**'
+      - '.github/workflows/build.yml'
+  release:
+    types: [published]
+  workflow_dispatch:
+
+env:
+  ADDON_NAME: apertodns
+  ADDON_SLUG: apertodns
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.arch }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch:
+          - aarch64
+          - amd64
+          - armhf
+          - armv7
+          - i386
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get add-on version
+        id: version
+        run: |
+          VERSION=$(grep '^version:' apertodns/config.yaml | cut -d'"' -f2)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./apertodns
+          file: ./apertodns/Dockerfile
+          platforms: linux/${{ matrix.arch == 'aarch64' && 'arm64' || matrix.arch == 'armhf' && 'arm/v6' || matrix.arch == 'armv7' && 'arm/v7' || matrix.arch }}
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/homeassistant-addon-${{ matrix.arch }}-apertodns:${{ steps.version.outputs.version }}
+            ghcr.io/${{ github.repository_owner }}/homeassistant-addon-${{ matrix.arch }}-apertodns:latest
+          build-args: |
+            BUILD_FROM=ghcr.io/home-assistant/${{ matrix.arch }}-base:latest
+          labels: |
+            org.opencontainers.image.title=ApertoDNS DDNS Add-on
+            org.opencontainers.image.description=Keep your ApertoDNS domains updated with your current IP
+            org.opencontainers.image.vendor=ApertoDNS
+            org.opencontainers.image.authors=Andrea Ferro <support@apertodns.com>
+            org.opencontainers.image.url=https://www.apertodns.com
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.version=${{ steps.version.outputs.version }}
+            io.hass.name=ApertoDNS DDNS
+            io.hass.type=addon
+            io.hass.arch=${{ matrix.arch }}
