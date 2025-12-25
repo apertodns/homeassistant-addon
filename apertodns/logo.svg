@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 500 500">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="0.119" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fd7f01"/>
+      <stop offset="1" stop-color="#c91400"/>
+    </linearGradient>
+  </defs>
+  <circle cx="250" cy="250" r="230" fill="url(#linear-gradient)"/>
+  <text x="250" y="320" font-family="Arial, sans-serif" font-size="290" font-weight="bold" fill="white" text-anchor="middle">A</text>
+</svg>

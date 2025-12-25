@@ -1,0 +1,22 @@
+configuration:
+  auth_method:
+    name: Authentication Method
+    description: Choose how to authenticate. "token" uses your DDNS token (recommended), "credentials" uses your ApertoDNS email and password.
+  token:
+    name: DDNS Token
+    description: Your ApertoDNS DDNS token (64 hex characters). Find it in the ApertoDNS dashboard under Domains > [your domain] > DDNS Token. Required if auth_method is "token".
+  email:
+    name: Email
+    description: Your ApertoDNS account email. Required if auth_method is "credentials".
+  password:
+    name: Password
+    description: Your ApertoDNS account password. Required if auth_method is "credentials".
+  domains:
+    name: Domains
+    description: List of domains to update (e.g., myhost.apertodns.com)
+  update_interval:
+    name: Update Interval
+    description: How often to check and update IP (in seconds, 60-86400). Default is 300 seconds (5 minutes).
+  log_level:
+    name: Log Level
+    description: Verbosity of logging. Use "debug" for troubleshooting, "info" for normal operation.

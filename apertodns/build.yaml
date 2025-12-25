@@ -1,0 +1,21 @@
+# ============================================================================
+# Build configuration for ApertoDNS DDNS Add-on
+#
+# @author Andrea Ferro <support@apertodns.com>
+# @version 2.0.1
+# @link https://www.apertodns.com
+# ============================================================================
+
+build_from:
+  aarch64: ghcr.io/home-assistant/aarch64-base:3.18
+  amd64: ghcr.io/home-assistant/amd64-base:3.18
+  armhf: ghcr.io/home-assistant/armhf-base:3.18
+  armv7: ghcr.io/home-assistant/armv7-base:3.18
+  i386: ghcr.io/home-assistant/i386-base:3.18
+
+labels:
+  org.opencontainers.image.title: "ApertoDNS DDNS"
+  org.opencontainers.image.description: "ApertoDNS DDNS Add-on for Home Assistant"
+  org.opencontainers.image.source: "https://github.com/apertodns/homeassistant-addon"
+  org.opencontainers.image.authors: "Andrea Ferro <support@apertodns.com>"
+  org.opencontainers.image.url: "https://www.apertodns.com"

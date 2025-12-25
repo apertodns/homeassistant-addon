@@ -1,0 +1,10 @@
+# ============================================================================
+# ApertoDNS Home Assistant Add-ons Repository
+#
+# @author Andrea Ferro <support@apertodns.com>
+# @link https://www.apertodns.com
+# ============================================================================
+
+name: ApertoDNS Add-ons
+url: https://github.com/apertodns/homeassistant-addon
+maintainer: Andrea Ferro <support@apertodns.com>
