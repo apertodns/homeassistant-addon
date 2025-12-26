@@ -46,4 +46,4 @@ schema:
   update_interval: "int(60,86400)?"
   log_level: "list(debug|info|warning|error)?"
 
-image: "ghcr.io/apertodns/homeassistant-addon-apertodns-{arch}"
+image: "ghcr.io/apertodns/homeassistant-addon-{arch}-apertodns"
