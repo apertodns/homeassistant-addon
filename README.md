@@ -121,7 +121,7 @@ See [CHANGELOG.md](apertodns/CHANGELOG.md) for release history.
 
 ## License
 
-MIT License - Copyright (c) 2024-2025 Andrea Ferro - DevelopingWeb
+MIT License - Copyright (c) 2024-2025 Andrea Ferro - ApertoDNS
 
 ## Author
 
