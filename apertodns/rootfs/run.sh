@@ -4,7 +4,7 @@
 #
 # Main run script that handles DDNS updates at configured intervals.
 # Supports two authentication methods:
-#   1. DDNS Token (recommended) - Using token:token format
+#   1. DDNS Token (recommended) - Using hostname:token format
 #   2. Email + Password - Using email:password format
 #
 # @author Andrea Ferro <support@apertodns.com>
@@ -130,9 +130,19 @@ update_domain() {
 
     log_debug "Updating domain: $domain with IP: $ip"
 
+    # Build authentication string based on method
+    # Token auth: hostname:token (standard DynDNS2 format)
+    # Credentials auth: email:password
+    local auth_string
+    if [ "$AUTH_METHOD" == "token" ]; then
+        auth_string="${domain}:${TOKEN}"
+    else
+        auth_string="${AUTH_USER}:${AUTH_PASS}"
+    fi
+
     local response
     response=$(curl -s --max-time 30 \
-        -u "${AUTH_USER}:${AUTH_PASS}" \
+        -u "${auth_string}" \
         "${API_URL}?hostname=${domain}&myip=${ip}" 2>&1)
 
     local result
